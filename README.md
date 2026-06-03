@@ -1,4 +1,4 @@
-# Teams Status Tracker Firefox
+# Teams AlwaysThere Firefox
 
 Extension Firefox pour maintenir une activité périodique sur les onglets Microsoft Teams lorsque l'extension est activée.
 
@@ -18,7 +18,7 @@ Sur ces onglets, elle injecte une petite action côté page qui simule une activ
 1. Ouvrir Firefox.
 2. Aller sur `about:debugging#/runtime/this-firefox`.
 3. Cliquer sur `Charger un module complémentaire temporaire`.
-4. Sélectionner le fichier `teams-status-tracker-firefox/manifest.json`.
+4. Sélectionner le fichier `sources/manifest.json`.
 5. Ouvrir Microsoft Teams dans Firefox.
 6. Cliquer sur le bouton de l'extension, puis sur `Activer`.
 
@@ -38,19 +38,18 @@ L'extension n'agit que sur les onglets Teams correspondant aux domaines déclar�
 ./package-extension.sh
 ```
 
-Le fichier généré sera placé dans `dist/`, par exemple :
+Le package Firefox est généré dans `dist/` avec le nom suivant :
 
 ```text
-dist/teams-status-tracker-firefox-v1.0.0.xpi
+dist/teams-alwaysthere-firefox-v1.0.0.xpi
 ```
 
 ## Fichiers
 
-- `teams-status-tracker-firefox/manifest.json` décrit l'extension et ses permissions.
-- `teams-status-tracker-firefox/background.js` gère l'état actif et l'action périodique.
-- `teams-status-tracker-firefox/popup.html` affiche l'interface du bouton.
-- `teams-status-tracker-firefox/popup.js` gère l'interaction avec le bouton.
-- `package-extension.sh` génère le fichier `.xpi`.
+- `sources/manifest.json` décrit l'extension et ses permissions.
+- `sources/background.js` gère l'état actif et l'action périodique.
+- `sources/popup.html` affiche l'interface du bouton.
+- `sources/popup.js` gère l'interaction avec le bouton.
 
 ## Permissions
 
