@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Teams Status Tracker",
+  "version": "1.0.0",
+  "description": "Aide à maintenir l'activité de l'onglet Teams quand l'extension est activée.",
+  "permissions": [
+    "alarms",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://teams.cloud.microsoft/*",
+    "*://teams.microsoft.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Teams Status Tracker"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "service_worker": "background.js"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "teams-status-tracker-firefox@example.local"
+    }
+  }
+}
