@@ -1,18 +1,36 @@
 # Teams Status Tracker Firefox
 
-Extension Firefox WebExtension Manifest V3 pour maintenir une activité périodique sur les onglets Microsoft Teams lorsque l'extension est activée depuis le popup.
+Extension Firefox pour maintenir une activité périodique sur les onglets Microsoft Teams lorsque l'extension est activée.
 
-## Structure
+## Fonctionnement
 
-- `teams-status-tracker-firefox/` contient les sources de l'extension.
-- `package-extension.sh` crée un paquet `.xpi` dans `dist/`.
+L'extension ajoute un bouton dans la barre d'outils Firefox. Depuis ce bouton, il est possible d'activer ou de désactiver le suivi d'activité.
 
-## Corrections Firefox
+Quand elle est activée, l'extension recherche régulièrement les onglets Microsoft Teams ouverts sur les domaines suivants :
 
-- Le manifest déclare `background.scripts` en plus de `background.service_worker`, car Firefox utilise les scripts/event pages pour le background MV3.
-- Les permissions `storage` et `alarms` sont déclarées parce que le code utilise `chrome.storage.local` et `chrome.alarms`.
-- Le timer global `setInterval` a été remplacé par `chrome.alarms`, plus fiable avec les backgrounds MV3 non persistants.
-- Les erreurs d'accès aux onglets ou d'injection sont gérées via `chrome.runtime.lastError`.
+- `teams.cloud.microsoft`
+- `teams.microsoft.com`
+
+Sur ces onglets, elle injecte une petite action côté page qui simule une activité légère. L'état activé ou désactivé est mémorisé localement par Firefox, afin d'être conservé entre deux ouvertures du navigateur.
+
+## Installation temporaire
+
+1. Ouvrir Firefox.
+2. Aller sur `about:debugging#/runtime/this-firefox`.
+3. Cliquer sur `Charger un module complémentaire temporaire`.
+4. Sélectionner le fichier `teams-status-tracker-firefox/manifest.json`.
+5. Ouvrir Microsoft Teams dans Firefox.
+6. Cliquer sur le bouton de l'extension, puis sur `Activer`.
+
+Firefox doit autoriser l'extension à accéder aux domaines Teams pour que le suivi fonctionne.
+
+## Utilisation
+
+- `Activer` lance le suivi périodique sur les onglets Teams ouverts.
+- `Désactiver` arrête immédiatement le suivi.
+- Le statut affiché dans le popup indique l'état actuel de l'extension.
+
+L'extension n'agit que sur les onglets Teams correspondant aux domaines déclarés dans ses permissions.
 
 ## Créer le package
 
@@ -26,11 +44,17 @@ Le fichier généré sera placé dans `dist/`, par exemple :
 dist/teams-status-tracker-firefox-v1.0.0.xpi
 ```
 
-## Tester dans Firefox
+## Fichiers
 
-1. Ouvrir `about:debugging#/runtime/this-firefox`.
-2. Cliquer sur `Charger un module complémentaire temporaire`.
-3. Sélectionner `teams-status-tracker-firefox/manifest.json`.
-4. Ouvrir Teams dans Firefox, puis activer l'extension depuis son popup.
+- `teams-status-tracker-firefox/manifest.json` décrit l'extension et ses permissions.
+- `teams-status-tracker-firefox/background.js` gère l'état actif et l'action périodique.
+- `teams-status-tracker-firefox/popup.html` affiche l'interface du bouton.
+- `teams-status-tracker-firefox/popup.js` gère l'interaction avec le bouton.
+- `package-extension.sh` génère le fichier `.xpi`.
 
-Les permissions de site Teams doivent être accordées dans Firefox pour que l'injection fonctionne.
+## Permissions
+
+- `alarms` permet de déclencher l'action périodique.
+- `scripting` permet d'exécuter l'action dans les onglets Teams.
+- `storage` permet de mémoriser si l'extension est activée ou désactivée.
+- Les permissions de site limitent l'accès aux domaines Microsoft Teams.
