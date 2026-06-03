@@ -32,6 +32,16 @@ Firefox doit autoriser l'extension à accéder aux domaines Teams pour que le su
 
 L'extension n'agit que sur les onglets Teams correspondant aux domaines déclarés dans ses permissions.
 
+## Réglages
+
+Les réglages sont disponibles directement dans le popup de l'extension.
+
+- `Fréquence` définit l'intervalle entre deux actions périodiques. La valeur peut être réglée entre 30 et 300 secondes.
+- `Mouvement souris` active ou désactive la simulation d'un mouvement de souris dans l'onglet Teams.
+- `Signal focus` active ou désactive l'envoi d'un signal de focus à la page Teams.
+
+Les réglages sont enregistrés localement par Firefox. Si l'extension est déjà active, les nouveaux réglages sont appliqués automatiquement.
+
 ## Créer le package
 
 ```bash

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <style>
     body {
-      width: 280px;
+      width: 320px;
       padding: 15px;
       font-family: system-ui, sans-serif;
     }
@@ -24,6 +24,37 @@
       cursor: pointer;
     }
 
+    fieldset {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      margin: 14px 0 0;
+      padding: 12px;
+    }
+
+    legend {
+      padding: 0 4px;
+      font-weight: 700;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    input[type="number"] {
+      width: 88px;
+      padding: 6px;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+    }
+
     #status {
       text-align: center;
       margin: 10px 0;
@@ -32,10 +63,29 @@
   </style>
 </head>
 <body>
-  <h1>Teams Status Tracker</h1>
+  <h1>Teams AlwaysThere</h1>
   <div id="status">Désactivé</div>
 
   <button id="toggle" type="button">Activer</button>
+
+  <fieldset>
+    <legend>Réglages</legend>
+
+    <label for="intervalSeconds">
+      Fréquence
+      <input id="intervalSeconds" type="number" min="30" max="300" step="15">
+    </label>
+
+    <label for="simulateMouse">
+      Mouvement souris
+      <input id="simulateMouse" type="checkbox">
+    </label>
+
+    <label for="simulateFocus">
+      Signal focus
+      <input id="simulateFocus" type="checkbox">
+    </label>
+  </fieldset>
 
   <script src="popup.js"></script>
 </body>
